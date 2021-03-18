@@ -6,10 +6,12 @@
     justify-content: center;
     white-space    : normal;
 }
+
 #interna {
     margin: 0 auto;
-    width: 50%; /* Valor da Largura */
-    }
+    width : 50%;
+    /* Valor da Largura */
+}
 
 @-webkit-keyframes fadeIn {
     0% {
@@ -58,6 +60,10 @@
     animation        : fadeIn 2s ease-in-out;
 }
 
-.corfundo {
-    background-color: #6C7A89;
+body {
+    background-color: #bfbfbf;
+}
+
+.quetoes {
+    width: 100%;
 }
