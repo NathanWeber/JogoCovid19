@@ -149,10 +149,29 @@ body {
 
 }
 
-.quetoes {
-    width: 100%;
-}
-
 .cardLogin-group a {
     outline: 0;
+}
+
+.size-home {
+    /*tamanho do formulario*/
+    width      : 400px;
+    /*colocar a divi no meio */
+    margin     : auto;
+    /*espaçamento do top*/
+    padding-top: 200px;
+    /*fonte da tela login*/
+
+}
+
+.level {
+    align-content   : center;
+    text-align      : center;
+    border-radius   : 3px;
+    width           : 100%;
+    background-image: linear-gradient(to right, rgba(70, 116, 175, 0.541), rgba(121, 121, 231, 0.808));
+    padding         : 10px;
+    outline         : 0;
+    color           : white;
+    border          : 10px;
 }
