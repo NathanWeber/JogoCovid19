@@ -10,24 +10,27 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
 </head>
 
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="home.html">Nome do game aqui</a>
+        <a class="navbar-brand" href="/home">Nome do game aqui</a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="criadores.html">Criadores</a>
+                    <a class="nav-link" href="/ranking">Ranking</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/criadores">Criadores</a>
+                </li>      
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">Sair</a>
+                    <a class="nav-link" href="/login">Sair</a>
                 </li>
 
             </ul>
@@ -40,13 +43,13 @@
 
     <div class="size-home">
         <div class="level">
-            <button >Nível 1</button>
+            <a href="/nivel1"><button >Nível 1</button></a>
         </div>
         <div class="level">
-            <button >Nível 2</button>
+            <a href="/nivel2"><button >Nível 2</button></a>
         </div>
         <div class="level">
-            <button >Nível 3</button>
+            <a href="/nivel3"><button >Nível 3</button></a>
         </div>
     </div>
     

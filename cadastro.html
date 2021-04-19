@@ -11,12 +11,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
 </head>
 
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-        <a class="navbar-brand" href="login.html">Nome do game aqui</a>
+        <a class="navbar-brand" href="/login">Nome do game aqui</a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -25,38 +25,31 @@
             </ul>
         </div>
     </nav>
-    <div id="interna">
-        <div class="row">
-            <br>
-
-            <div class="col">
-                <br>
-                <label for="inputNome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputNome">
-            </div>
-
-            <div class="col">
-                <br>
-                <label for="inputSobrenome" class="form-label">Sobre Nome</label>
-                <input type="text" class="form-control" id="inputSobrenome">
-            </div>
+    <div id="interna" class="card">
+        <div class="card-body">
+            <form action="/novocadastro" class="row g-3" method="POST">
+            <div class="col-md-6">
+                    <label for="inputNome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="inputNome" name="nome">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputSobrenome" class="form-label">Sobre Nome</label>
+                    <input type="text" class="form-control" id="inputSobrenome" name="sobrenome">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" name="email">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword" class="form-label">Senha</label>
+                    <input type="password" class="form-control" id="inputPassword" name="senha">
+                </div>
+                <div class="col-12">
+                    <br>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </form>
         </div>
-        <br>
-        <form class="row g-3">
-            <div class="col-md-6">
-                <label for="inputEmail4" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail4">
-            </div>
-            <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="inputPassword4">
-            </div>
-
-            <div class="col-12">
-                <br>
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </div>
-        </form>
     </div>
 
     <!-- Optional JavaScript -->
