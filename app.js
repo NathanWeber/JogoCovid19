@@ -7,11 +7,10 @@ const mongoose = require('mongoose');
 const session = require('express-session')
 const flash = require('connect-flash')
 require("./models/usuario")
+require("./models/nivel1")
 const Usuario = mongoose.model("usuario")
+const Nivel1 = mongoose.model("nivel1")
 
-function teste(){
-    console.log("vai se fuder")
-}
 //Configurações
 //Sessão
 app.use(session({
@@ -48,18 +47,23 @@ app.get('/', (req, res) => {
     res.render("layouts/login")
 } )
 app.get('/login', (req, res) => {
-    //res.sendFile(path.join(__dirname + '/login.html'));
     res.render("layouts/login")
 } )
 app.get('/cadastro', (req, res) => {
-    //res.sendFile(path.join(__dirname + '/views/layouts/cadastro.handlebars'));
     res.render("layouts/cadastro")
 } )
 app.get('/home', (req, res) => {
     res.render("layouts/home")
 } )
 app.get("/nivel1", function (req, res) {
-    res.render("layouts/nivel1")
+    Nivel1.aggregate([{$sample: {size:3}}]).then((nivel1p) => {
+        console.log(nivel1p)
+        res.render("layouts/nivel1", {nivel1p: nivel1p})
+        
+    }).catch((err) =>{
+        req.flash("error_msg", "Houve um erro ao listar as perguntas!")
+        res.redirect("/home")
+    })  
 });
 app.get("/nivel2", function (req, res) {
     res.render("layouts/nivel2")
@@ -68,12 +72,18 @@ app.get("/nivel3", function (req, res) {
     res.render("layouts/nivel3")
 });
 app.get("/ranking", function (req, res) {
-    res.render("layouts/ranking")
+    Usuario.find().sort({pontuacao:-1}).then((usuarios) => {
+        console.log(usuarios)
+        res.render("layouts/ranking", {usuarios: usuarios.map(category => category.toJSON())})
+        
+    }).catch((err) =>{
+        req.flash("error_msg", "Houve um erro ao listar o ranking!")
+        res.redirect("/home")
+    })  
 });
 app.get("/criadores", function (req, res) {
     res.render("layouts/criadores")
 });
-
 app.post('/novocadastro', (req, res) => {
     var erros = []
 
