@@ -1,47 +1,47 @@
- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="/login">Nome do game aqui</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            </ul>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="/login">Nome do game aqui</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        </ul>
+    </div>
+</nav>
+<form action="/home" class="formLogin ">
+    <div class="cardLogin">
+
+        <div class="cardLogin-Top">
+            <img class="imgLogin" src="/img/usuarioSemImagem.png" alt="">
+            <h2 class="tituloLogin">Login</h2>
         </div>
-    </nav>
-    <form action="/home" class="formLogin">
-        <div class="cardLogin">
 
-            <div class="cardLogin-Top">
-                <img class="imgLogin" src="/img/usuarioSemImagem.png" alt="">
-                <h2 class="tituloLogin">Login</h2>
-            </div>
+        <div class="cardLogin-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Digite seu email" required>
+        </div>
 
-            <div class="cardLogin-group">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="Digite seu email" required>
-            </div>
+        <div class="cardLogin-group">
+            <label>Senha</label>
+            <input type="password" name="Senha" placeholder="Digite sua Senha" required>
+        </div>
 
-            <div class="cardLogin-group">
-                <label>Senha</label>
-                <input type="password" name="Senha" placeholder="Digite sua Senha" required>
-            </div>
-
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                <label class="form-check-label" for="dropdownCheck">
-                    Lembre-me
-                </label>
-
-            </div>
-
-            <div class="cardLogin-group btnLogin">
-                <button type="submit">Entrar</button>
-            </div>
-
-            <div class="cardLogin-group">
-                <a class="dropdown-item" href="/cadastro">Criar conta</a>
-                <a class="dropdown-item" href="#">Esqueceu sua senha?</a>
-            </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="dropdownCheck">
+            <label class="form-check-label" for="dropdownCheck">
+                Lembre-me
+            </label>
 
         </div>
 
-    </form>
+        <div class="cardLogin-group btnLogin">
+            <button type="submit">Entrar</button>
+        </div>
+
+        <div class="cardLogin-group">
+            <a class="dropdown-item" href="/cadastro">Criar conta</a>
+            <a class="dropdown-item" href="#">Esqueceu sua senha?</a>
+        </div>
+
+    </div>
+
+</form>
