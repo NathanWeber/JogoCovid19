@@ -118,6 +118,20 @@ app.post('/novocadastro', (req, res) => {
     });
 });
 
+app.patch('/updatepontuacao', function(req, res){
+    Usuario.find().then((usuarios) => {
+        console.log(usuarios)
+        res.render("layouts/ranking", {usuarios: usuarios.map(category => category.toJSON())})
+        
+    }).catch((err) =>{
+        req.flash("error_msg", "Houve um erro ao listar o ranking!")
+        res.redirect("/home")
+    })  
+
+    const updatePontuacao = {
+        pontuacao = req.body
+    }
+})
 //Outros
 const PORT = 8081
 app.listen(PORT, function() {
