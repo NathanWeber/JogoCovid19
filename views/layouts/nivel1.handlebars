@@ -28,7 +28,7 @@
 <div id="interna" class="card">
     <div class="container mt-4">
         <div class="card-body">
-            <form  action="/updateusuario" row g-3" >
+            <form  action="/updatepontuacao?nota=nota" class="row g-3" method="POST">
                 {{#each nivel1p}}
                     <div class="col-12"><label class="form-label">{{pergunta}}</label>
                     </div>
@@ -44,9 +44,10 @@
                         {{!-- {{else}} --}}
                     {{/each}}
                 {{/each}}
+                <input name="nota" id="nota" hidden></div>
                 <div class="col-12">
                     <br>
-                    <button type="button" class="btn btn-primary" onclick="calculaPontuacao('formn1',[{certo: true, peso:10}, {certo: false, peso: 10},{certo: true, peso:5}])">Finalizar</button>
+                    <button type="submit" class="btn btn-primary">Finalizar</button>
                 </div>
             </form>
         </div>

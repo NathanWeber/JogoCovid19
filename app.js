@@ -118,19 +118,24 @@ app.post('/novocadastro', (req, res) => {
     });
 });
 
-app.patch('/updatepontuacao', function(req, res){
-    Usuario.find().then((usuarios) => {
-        console.log(usuarios)
-        res.render("layouts/ranking", {usuarios: usuarios.map(category => category.toJSON())})
-        
+app.post('/updatepontuacao', async function(req, res){
+    let usuario;
+    await Usuario.findOne({email:"nathan.patrike@gmail.com"}).then((usr) => {
+        console.log({usr})
+        usuario = usr;
     }).catch((err) =>{
-        req.flash("error_msg", "Houve um erro ao listar o ranking!")
-        res.redirect("/home")
-    })  
+        req.flash("error_msg", "Houve um erro ao consultar usuário!")
+    })
 
-    const updatePontuacao = {
-        pontuacao = req.body
-    }
+    const pontuacao = Number(req.body.nota) + usuario.pontuacao;
+
+    Usuario.findOneAndUpdate({email: usuario.email}, {pontuacao}).then(() =>{
+        console.log({pt:pontuacao})
+        req.flash("success_msg", `${usuario.nome}, sua pontuação agora é ${pontuacao}`)
+        res.redirect("/home")
+    }).catch((err) =>{
+        req.flash("error_msg", "Houve um erro ao atualizar a pontuação!")
+    })
 })
 //Outros
 const PORT = 8081

@@ -14,6 +14,6 @@ function calculaPontuacao(key, peso, certo){
             nota -=peso;
         }
     }
+    document.getElementById("nota").value = nota
     console.log({nota})
-
 }
