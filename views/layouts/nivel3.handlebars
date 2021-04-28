@@ -1,28 +1,55 @@
-
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="/home">Nome do game aqui</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/criadores">Criadores</a>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Sair</a>
-                </li>
-
-            </ul>
-        </div>
-
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="/home">Nome do game aqui</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/criadores">Criadores</a>
+            </li>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Sair</a>
+            </li>
 
         </ul>
+    </div>
+
+
+    </ul>
+    </div>
+</nav>
+
+<div id="interna" class="card">
+    <div class="container mt-4">
+        <div class="card-body">
+            <form  action="/updatepontuacao?nota=nota" class="row g-3" method="POST">
+                {{#each nivel3p}}
+                    <div class="col-12"><label class="form-label">{{pergunta}}</label>
+                    </div>
+                    {{#each alternativas}}
+                        <div class="form-check">
+                            <div class="col-12">
+                                <input class="form-check-input" type="radio" name="{{../key}}" id="{{../key}}{{@index}}{{key}}" onclick="calculaPontuacao('{{../key}}', {{../peso}}, {{certo}})">
+                                <label class="form-check-label" for="{{../key}}{{@index}}{{key}}">
+                                    {{resposta}}
+                                </label>
+                            </div>
+                        </div>
+                        {{!-- {{else}} --}}
+                    {{/each}}
+                {{/each}}
+                <input name="nota" id="nota" hidden></div>
+                <div class="col-12">
+                    <br>
+                    <button type="submit" class="btn btn-primary">Finalizar</button>
+                </div>
+            </form>
         </div>
-    </nav>
+    </div>
+</div>

@@ -6,10 +6,17 @@ const app = express()
 const mongoose = require('mongoose');
 const session = require('express-session')
 const flash = require('connect-flash')
+const bcrypt = require('bcryptjs')
+const passport = require('passport')
 require("./models/usuario")
 require("./models/nivel1")
+require("./models/nivel2")
+require("./models/nivel3")
+require("./config/auth")(passport)
 const Usuario = mongoose.model("usuario")
 const Nivel1 = mongoose.model("nivel1")
+const Nivel2 = mongoose.model("nivel2")
+const Nivel3 = mongoose.model("nivel3")
 
 //Configurações
 //Sessão
@@ -18,6 +25,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash())
 //Middleware
 app.use((req, res, next) =>{
@@ -49,6 +58,9 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     res.render("layouts/login")
 } )
+app.post('/login', (req, res, next) => {
+    passport.authenticate("local",{successRedirect: "/home",failureRedirect: "/login",failureFlash: true})(req, res, next)
+} )
 app.get('/cadastro', (req, res) => {
     res.render("layouts/cadastro")
 } )
@@ -66,10 +78,24 @@ app.get("/nivel1", function (req, res) {
     })  
 });
 app.get("/nivel2", function (req, res) {
-    res.render("layouts/nivel2")
+    Nivel2.aggregate([{$sample: {size:3}}]).then((nivel2p) => {
+        console.log(nivel2p)
+        res.render("layouts/nivel2", {nivel2p: nivel2p})
+        
+    }).catch((err) =>{
+        req.flash("error_msg", "Houve um erro ao listar as perguntas!")
+        res.redirect("/home")
+    })  
 });
 app.get("/nivel3", function (req, res) {
-    res.render("layouts/nivel3")
+    Nivel3.aggregate([{$sample: {size:3}}]).then((nivel3p) => {
+        console.log(nivel3p)
+        res.render("layouts/nivel3", {nivel3p: nivel3p})
+        
+    }).catch((err) =>{
+        req.flash("error_msg", "Houve um erro ao listar as perguntas!")
+        res.redirect("/home")
+    })  
 });
 app.get("/ranking", function (req, res) {
     Usuario.find().sort({pontuacao:-1}).then((usuarios) => {
@@ -84,6 +110,8 @@ app.get("/ranking", function (req, res) {
 app.get("/criadores", function (req, res) {
     res.render("layouts/criadores")
 });
+
+
 app.post('/novocadastro', (req, res) => {
     var erros = []
 
@@ -99,28 +127,59 @@ app.post('/novocadastro', (req, res) => {
 
     if(erros.length > 0){
         res.render("layouts/cadastro", {erros: erros})
-    }   
+    }  else {
+        Usuario.findOne({email: req.body.email}).then((usuario) => {
+            if(usuario){
+                req.flash("error_msg", "Já existe um usuário com esse email")
+                res.redirect("/cadastro")
+            }else{
 
-   const novoUsuario = {
-       nome: req.body.nome,
-       sobrenome: req.body.sobrenome,
-       email: req.body.email,
-       senha: req.body.senha
-   }
+                const novoUsuario = {
+                    nome: req.body.nome,
+                    sobrenome: req.body.sobrenome,
+                    email: req.body.email,
+                    senha: req.body.senha
+                }
 
-   new Usuario(novoUsuario).save().then(()=>{
-    console.log('Usuário cadastrado com sucesso!')
-    req.flash("success_msg", "Usuário cadastrado com sucesso!")
-    res.redirect("/login")
-    }).catch(()=>{
-    console.log('Erro ao cadastrar Usuário!')
-    req.flash("error_msg", "Erro ao cadastrar usuário!")
-    });
+                bcrypt.genSalt(10, (erro, salt) => {
+                    bcrypt.hash(novoUsuario.senha, salt, (erro,hash) =>{
+                        if(erro){
+                            req.flash("error_msg", "Houve um erro durante o salvamento")
+                            res.redirect("/cadastro")
+                        }
+
+                        novoUsuario.senha = hash
+
+                        new Usuario(novoUsuario).save().then(()=>{
+                            console.log('Usuário cadastrado com sucesso!')
+                            req.flash("success_msg", "Usuário cadastrado com sucesso!")
+                            res.redirect("/login")
+                            }).catch(()=>{
+                            console.log('Erro ao cadastrar Usuário!')
+                            req.flash("error_msg", "Erro ao cadastrar usuário!")
+                            res.redirect("/cadastro")
+                            });
+                    })
+                })
+             
+                
+            }
+        }).catch((err) => {
+            req.flash("error_msg", "Houve um erro interno")
+            res.redirect("/cadastro")
+        })
+    }
+
 });
 
 app.post('/updatepontuacao', async function(req, res){
     let usuario;
-    await Usuario.findOne({email:"nathan.patrike@gmail.com"}).then((usr) => {
+    const updateUsuario = {
+        email: req.body.emaillogin
+    }
+    
+    console.log(updateUsuario.emaillogin)
+    await Usuario.findOne({email:'nathan.patrike1@gmail.com'}).then((usr) => {
         console.log({usr})
         usuario = usr;
     }).catch((err) =>{
@@ -137,6 +196,13 @@ app.post('/updatepontuacao', async function(req, res){
         req.flash("error_msg", "Houve um erro ao atualizar a pontuação!")
     })
 })
+
+app.get("/logout", function (req, res) {
+    req.logOut()
+    req.flash("success_msg", "LogOut efetuado!")
+    res.redirect("/login")
+});
+
 //Outros
 const PORT = 8081
 app.listen(PORT, function() {
