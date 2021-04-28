@@ -59,6 +59,8 @@ app.get('/login', (req, res) => {
     res.render("layouts/login")
 } )
 app.post('/login', (req, res, next) => {
+    req.session.login = req.body.emaillogin
+    console.log(req.session.login)
     passport.authenticate("local",{successRedirect: "/home",failureRedirect: "/login",failureFlash: true})(req, res, next)
 } )
 app.get('/cadastro', (req, res) => {
@@ -179,7 +181,7 @@ app.post('/updatepontuacao', async function(req, res){
     }
     
     console.log(updateUsuario.emaillogin)
-    await Usuario.findOne({email:'nathan.patrike1@gmail.com'}).then((usr) => {
+    await Usuario.findOne({email:req.session.login}).then((usr) => {
         console.log({usr})
         usuario = usr;
     }).catch((err) =>{
