@@ -177,3 +177,37 @@
     display         : inline-block;
     list-style      : none;
 }
+
+/* deixar a primeira letra maiuscula*/
+.letraMaiuscula {
+    text-transform: capitalize;
+}
+
+.fundo-vermelho,
+.fundo-azul {
+    /*height: 200px;*/
+    margin-bottom: 8px;
+}
+
+.fundo-vermelho {
+    background: red;
+}
+
+.fundo-azul {
+    background: rgb(27, 2, 51);
+}
+
+
+/*essa parte é para o contador do ranking */
+.tableContador {
+    counter-reset: ranking;
+}
+
+
+tbody tr {
+    counter-increment: ranking;
+}
+
+td.rank>span:before {
+    content: counter(ranking);
+}
