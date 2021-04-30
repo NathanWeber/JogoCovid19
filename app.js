@@ -70,7 +70,7 @@ app.get('/home', (req, res) => {
     res.render("layouts/home")
 } )
 app.get("/nivel1", function (req, res) {
-    Nivel1.aggregate([{$sample: {size:3}}]).then((nivel1p) => {
+    Nivel1.aggregate([{$sample: {size:5}}]).then((nivel1p) => {
         console.log(nivel1p)
         res.render("layouts/nivel1", {nivel1p: nivel1p})
         
@@ -80,7 +80,7 @@ app.get("/nivel1", function (req, res) {
     })  
 });
 app.get("/nivel2", function (req, res) {
-    Nivel2.aggregate([{$sample: {size:3}}]).then((nivel2p) => {
+    Nivel2.aggregate([{$sample: {size:5}}]).then((nivel2p) => {
         console.log(nivel2p)
         res.render("layouts/nivel2", {nivel2p: nivel2p})
         
@@ -90,7 +90,7 @@ app.get("/nivel2", function (req, res) {
     })  
 });
 app.get("/nivel3", function (req, res) {
-    Nivel3.aggregate([{$sample: {size:3}}]).then((nivel3p) => {
+    Nivel3.aggregate([{$sample: {size:5}}]).then((nivel3p) => {
         console.log(nivel3p)
         res.render("layouts/nivel3", {nivel3p: nivel3p})
         
